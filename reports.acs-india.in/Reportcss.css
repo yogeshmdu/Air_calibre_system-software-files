@@ -1,0 +1,265 @@
+/* Normal structure of the all desktop */
+body {
+	margin: 2px;
+}
+#customer th {
+    border: 1px dotted;
+    background-color:#cacaca;
+    justify-content: center;
+    text-align: center;
+    padding: 3px;
+}
+@media print
+      {
+         @page {
+           margin-top: 0;
+           margin-bottom: 0;
+         }
+      } 
+
+/* Customer content name details */
+.cust_first {
+    border-right: 1px dotted;
+    border-left: 1px dotted;
+    text-align: left;
+    width: 20%;
+}
+
+/* Random content details */
+.cust_sec {
+    border-right: 1px dotted;
+    width: 25%;
+}
+#empty{
+    border-left: 1px dotted;
+    border-right: 1px dotted ;
+}
+
+/* Table */
+table {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    border-collapse: collapse;
+    width: 100%;
+    padding: 20px;
+    font-size: small;
+    line-height: 20px;
+}
+
+/* Equipment report section */
+#Equip td {
+    border: 1px dotted;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+#Equip th {
+    border: 1px dotted;
+    background-color: #cacaca;
+    text-align: center;
+    padding: 3px;
+    justify-content: center;
+    
+}
+
+/* Velocity report section */
+
+#velo td {
+    border: 1px dotted;
+    text-align: center;
+}
+
+#velo th {
+    border-left: 1px dotted;
+    border-right: 1px dotted;
+    background-color: #cacaca;
+    text-align: center;
+    padding: 3px;
+    justify-content: center;
+}
+
+
+/* Footer section of all report */
+#note td {
+    border-top: 1px dotted;
+    border-left: 1px dotted;
+    border-right: 1px dotted;
+}
+
+#footer tr th {
+    text-align: center;
+    padding: 3px;
+    border: 1px dotted;
+}
+
+#signs td {
+    padding-bottom: 5rem;
+    text-align: center;
+    border: 1px dotted;
+    height: 6rem;
+}
+#bottomnote{
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: small;
+  border-left: 1px dotted;
+  border-right: 1px dotted;
+}
+#graphcontent{
+    width: 500px;
+    height: 200px;
+    margin: auto;
+}
+#graphborder{
+    border-left: 1px dotted;
+    border-right: 1px dotted;
+    
+}
+#headline{
+    margin: 2% 10% 0% 42%;
+}
+
+#sign_button{
+    margin: 3% 40% 3% 45%;
+}
+
+#input-form{
+    margin: 2% 35% 5% 35%;
+    padding: 10px;
+    box-shadow: 10px 10px 10px 10px #888888;
+}
+.form-label{
+    font-weight: bold;
+}
+
+/* Apply for the all devices to make a responsive report */
+
+@media only screen and (max-width: 768px) {
+    
+    body{
+        font-size: x-small;
+        width: auto;
+        height: auto;
+    }
+   
+    /* Report Headline */
+    #customer th {
+        border: 1px dotted;
+        background-color:#cacaca;
+        justify-content: center;
+        font-size: x-small;
+        text-align: center;
+    }
+    #customer tr td{
+        width: min-content;
+    }
+    
+    /* Customer content details */
+    .cust_first {
+        border-right: 1px dotted;
+        border-left: 1px dotted;
+        font-size: xx-small;
+        text-align: left;
+        width: 2.5rem;
+    }
+    /* Random customer details */
+    .cust_sec {
+        border-right: 1px dotted;
+        width: 3.5rem;
+        font-size: xx-small;
+    }
+    
+    /* Table */
+    
+    table {
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        border-collapse: collapse;
+        padding: 1rem;
+        font-size: small;
+        line-height: 1rem;
+    
+    }
+    table tr th{
+        background-color: #cacaca;
+    }
+    
+    /* Equipment report section */
+    #Equip td {
+        border: 1px dotted;
+        border-collapse: collapse;
+        text-align: center;
+        width: auto;
+        font-size: xx-small;
+    }
+    
+    #Equip th {
+        border: 1px dotted;
+        background-color: #cacaca;
+        text-align: center;
+        justify-content: center;
+        font-size: x-small;
+    }
+    
+    /* Velocity report section */
+    
+    #velo td {
+        border: 1px dotted;
+        text-align: center;
+        width: auto;
+        font-size: xx-small;
+    }
+    
+    #velo th {
+        border-left: 1px dotted;
+        border-right: 1px dotted;
+        background-color: #cacaca;
+        text-align: center;
+        justify-content: center;
+        font-size: x-small;
+    }
+    
+    /* Footer section of all reports */
+    #note td {
+        border-top: 1px dotted;
+        border-left: 1px dotted;
+        border-right: 1px dotted;
+        font-size: xx-small;
+    }
+    
+    #footer tr th {
+        text-align: center;
+        padding: 0.3rem;
+        border: 1px dotted;
+        font-size: xx-small;
+    }
+    
+    #signs td {
+        padding-bottom: 2rem;
+        font-size: xx-small;
+        text-align: center;
+        border: 1px dotted;
+        height: 3rem;
+    }
+    #empty{
+        border-left: 1px dotted;
+        border-right: 1px dotted;
+    }
+    #bottomnote{
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        font-size: small;
+        border-left: 1px dotted;
+        border-right: 1px dotted;
+    }
+	#graphcontent{
+        height: 200px;
+    }
+    #graphborder{
+        border-left: 1px dotted;
+        border-right: 1px dotted;
+    }
+    @media print
+    {
+       @page {
+         margin-top: 0;
+         margin-bottom: 0;
+       }
+    } 
+}

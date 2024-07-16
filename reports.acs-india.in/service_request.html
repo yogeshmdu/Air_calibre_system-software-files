@@ -1,0 +1,374 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Voucher Final View</title>
+    <style>
+        table, tr, th, td {
+          border: 1px solid black;
+          border-collapse: collapse;
+          width: 135px;
+        }
+        .main_container{
+            /* background-color: #a3a3dc; */
+            padding: 50px;
+        }
+  
+        @page {
+          size: A4;
+          margin: 0;
+        }
+        table {
+          width: 100%;
+        }
+        .head_container{
+            text-align: center; 
+            font-size: xx-large; 
+            font-weight: bold;
+            margin-bottom: 50px;
+        }
+        th {
+          height: 70px;
+          font-size: 25px;
+        }
+        td {
+          height: 50px;
+          text-align: center;
+          font-size: 25px;
+        }
+        #acs_logo {
+          width: 150px;
+          height: 130px;
+          margin-left: 200px;
+          margin-bottom: -120px;
+        }
+        .first_cont {
+          text-align: left;
+          font-weight: bold;
+        }
+        .sec_cont {
+          text-align: left;
+        }
+        .bottom_items {
+          text-align: left;
+        }
+  
+      
+      @media print {
+          html, body {
+            width: 210mm;
+            height: 297mm;
+          }
+          @media print
+          {
+          @page {
+              margin-top: 0;
+              margin-bottom: 0;
+            }
+          }
+          table {
+            width: 100%;
+          }
+          th {
+            height: 40px;
+            font-size: x-small;
+          }
+          td {
+            height: 30px;
+            text-align: center;
+            font-size: x-small;
+          }
+          #acs_logo {
+            width: 100px;
+            height: 100px;
+            margin-left: 1%;
+            margin-bottom: -85px;
+          }
+          .head_container{ 
+              text-align: center; 
+              font-size: 20px; 
+              font-weight: bold;
+              margin-bottom: 10px;
+          }
+          .first_cont {
+            text-align: left;
+            font-weight: bold;
+            font-size: 10px;
+          }
+          .sec_cont {
+              text-align: left;
+          }
+          .bottom_items {
+            text-align: left;
+          }
+          .bottom_cont{
+              font-size: 5px;
+              display: flex;
+              justify-content: space-between;
+          }
+        }
+      </style>
+  </head>
+  <body>
+    
+    <div class="main_container">
+    <a href="acs-india.in"><img id="acs_logo" src="../Haritha/acs_logo.jpg" alt=""/></a>
+      <div class="head_container">
+        <p>
+          AIR CALIBRE SYSTEMS - CHENNAI <br>
+          SERVICE REQUEST FORM
+        </p>
+      </div>
+
+      <table>
+        <thead>
+          <td>Document Number</td>
+          <td>Issue No. / Date</td>
+          <td>Amendment No. / Date</td>
+          <td>Page</td>
+        </thead>
+        <thead>
+          <td>ACS-LO4-R27</td>
+          <td>01 / 01.01.2024</td>
+          <td>00 / --</td>
+          <td>1 of 1</td>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="first_cont">Client Name</td>
+            <td></td>
+            <td class="first_cont">SRF No.</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="first_cont">Address</td>
+            <td></td>
+            <td class="first_cont">SRF Date</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="first_cont">Site/Plant Address</td>
+            <td></td>
+            <td class="first_cont">Tested by</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="first_cont">Witnessed by</td>
+            <td></td>
+            <td class="first_cont">Testing Date</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="first_cont">PO Ref</td>
+            <td></td>
+            <td class="first_cont">Inv No.</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="first_cont">In Time</td>
+            <td></td>
+            <td class="first_cont">Out Time</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="first_cont">Physical Condition of Item</td>
+            <td>Ok / Not Ok</td>
+            <td class="first_cont">Test Metdod</td>
+            <td>Customer Specified / Lab Std. Method</td>
+          </tr>
+          <tr>
+            <th colspan="4" style="text-align: left; padding-bottom: 50px">
+              Customer Name to be appeared in the Test Report:
+            </th>
+          </tr>
+          <tr>
+            <td
+              style="text-align: center;"
+              colspan="4">
+              SUMMATION
+            </td>
+          </tr>
+
+          <table>
+            <tr>
+              <td>Sr No.</td>
+              <td>AHU No.</td>
+              <td>Room Name</td>
+              <td>AV</td>
+              <td>FI</td>
+              <td>PC</td>
+              <td>DP</td>
+              <td>SL</td>
+              <td>LI</td>
+              <td>TRHmt</td>
+              <td>Rc</td>
+              <td>AFP</td>
+              <td>TRHM</td>
+              <td>Due Date</td>
+            </tr>
+            <tbody>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th colspan="14"></th>
+              </tr>
+              <tr>
+                <th colspan="14"></th>
+              </tr>
+
+              <table>
+                  <td>CUSTOMER FEED BACK</td>
+                  <td>Marks</td>
+                  <td class="first_cont" style="text-align: left;" rowspan="3">
+                    Remarks:
+                  </td>
+                  <tr>
+                    <td class="bottom_items">Attitude</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td class="bottom_items">Communication</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td class="bottom_items">Trouble Shooting</td>
+                    <td></td>
+                    <td class="first_cont" style="text-align: right;" rowspan="4">
+                      Customer signature with seal
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="bottom_items">Quality of our Service</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td class="bottom_items">Responsiveness & Promptness</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td style="text-align: left" colspan="2">
+                      4- Excellent, 3- Good, 2- Average, 1- Poor
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style="text-align: left; padding-bottom: 50px; color: #6b6bdd;" colspan="4">
+                      Your Valuable suggestions/ improvements points can be
+                      stated here:
+                    </td>
+                  </tr>
+              </table>
+            </tbody>
+          </table>
+        </tbody>
+      </table>
+      <br /><br /><br />
+      
+      <div class="bottom_cont">
+        <h2 style="float: left; margin-bottom: 20%">
+            Prepared by (Validation Eng) &nbsp; &nbsp; Signature
+          </h2>
+          <h2 style="float: right; margin-bottom: 20%">
+            Reviewed Approved by (Calibration Engineer) &nbsp; &nbsp; Signature
+          </h2>
+      </div>
+      
+    </div>
+  </body>
+</html>

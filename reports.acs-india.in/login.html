@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="icon" type="image/x-icon" href="./image/ACS.jpg">
+    <style>
+      body {
+        font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+          sans-serif;
+        background-image: url("./image/cleanroom.jpg");
+
+        background-size: cover;
+      }
+
+      #main_container {
+        width: 30%;
+        margin-left: 35%;
+        margin-top: 10%;
+      }
+
+      form {
+        border: 1px solid white;
+        border-radius: 60px;
+        text-align: center;
+        /* background-color: brown; */
+      }
+
+      input[type="text"],
+      input[type="password"] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid white;
+        box-sizing: border-box;
+      }
+
+      button {
+        background-color: #070044;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+      }
+
+      .imgcontainer {
+        text-align: center;
+        margin: 25px 0px 15px 0px;
+      }
+
+      img.avatar {
+        width: 30%;
+        border-radius: 50%;
+        text-align: center;
+        width: 80px;
+        height: 80px;
+      }
+
+      .container {
+        padding: 15px;
+        margin: 10px;
+      }
+
+      .container {
+        position: relative;
+        text-align: justify;
+        color: white;
+      }
+      @media (max-width: 575.98px) {
+        body{
+    overflow: hidden;
+    background-image: url("./image/cleanroom.jpg");
+    background-size: cover;
+    background-position: center;
+    max-width: 100vw;
+    height: 100vh;
+  }
+      #main_container {
+       width: 75%;
+       margin-top: 100px;
+       margin-left: 60px;
+  }
+  
+}
+
+/* // Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  body{
+    overflow: hidden;
+    background-image: url("./image/cleanroom.jpg");
+    background-size: cover;
+    background-position: center;
+    max-width: 100vw;
+    height: 100vh;
+  }
+  #main_container {
+       width: 60%;
+       margin-top: 100px;
+       margin-left: 125px;
+  }
+}
+
+/* // Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) { 
+  body{
+    overflow: hidden;
+    background-image: url("./image/cleanroom.jpg");
+    background-size: cover;
+    background-position: center;
+    max-width: 100vw;
+    height: 100vh;
+  }
+  #main_container {
+       width: 55%;
+       margin-top: 100px;
+       margin-left: 180px;
+  }
+}
+
+/* // Large devices (desktops, 992px and up) */
+@media (min-width: 991.98px) and (max-width: 1199.98px) { 
+  #main_container {
+       width: 39%;
+       margin-top: 100px;
+       margin-left: 305px;
+  }
+ }
+
+    </style>
+  </head>
+  <body>
+    <div id="main_container">
+      <form action="login.php" method="GET">
+        <div class="imgcontainer">
+          <img src="image/ACS.jpeg" alt="Avatar" class="avatar" />
+        </div>
+        <h1>Login</h1>
+        <div class="container">
+          <label for="user_id"><b>Username</b></label>
+          <input
+            type="text"
+            placeholder="Enter Username"
+            name="user_id"
+            required
+          />
+          <label for="user_password"><b>Password</b></label>
+          <input
+            type="password"
+            placeholder="Enter Password"
+            name="user_password"
+            required
+          />
+          <button type="Submit">Login</button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
