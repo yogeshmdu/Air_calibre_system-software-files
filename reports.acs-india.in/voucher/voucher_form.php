@@ -28,6 +28,7 @@ if (isset($_GET['emp_id'])) {
 if (isset($_GET['edit'])) {
     $editvoucher = '&edit=yes';
 }
+
 if (isset($_GET['serial_no'])) {
     $serial_no = $_GET['serial_no'];
 }
@@ -53,8 +54,17 @@ if (isset($_GET['serial_no'])) {
             }
         }
 
+        * {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size: small;
+        }
+
         .heading_container {
             text-align: center;
+            background-color: #424242;
+            margin: 3% 4% 4% 4%;
+            color: white;
+            padding: 1% 0%;
         }
 
         .head_container {
@@ -120,10 +130,11 @@ if (isset($_GET['serial_no'])) {
         #textarea_cont {
             width: 800px;
             height: 60px;
+            margin-left: 20%;
         }
 
         .sub_btn {
-            margin-top: 100px;
+            margin-top: 50px;
             text-align: center;
         }
 
@@ -131,11 +142,7 @@ if (isset($_GET['serial_no'])) {
             display: none;
         }
 
-        h3 {
-            background-color: #660066;
-            padding: 15px 50px 15px 50px;
-            color: whitesmoke;
-        }
+
 
         /* The media query / Responsive code are there */
         @media screen and (max-width:820px) {
@@ -226,28 +233,23 @@ if (isset($_GET['serial_no'])) {
 <body>
     <?php
 
-
     $date_query = "SELECT * FROM emp_vou_details WHERE emp_id = '$emp_id' AND vou_date = '$vou_date'";
     $date_data = $mysqli->query($date_query);
     $date_res = $date_data->num_rows;
 
-
     // echo $date_res;
     
-
-
-
     if ($vou_format != 1) {
 
         // Fetch the initial opening balance
-        $vou_opening_query = "SELECT * FROM emp_adv_given WHERE given_emp_id = '$emp_id' AND vou_date <= '$vou_date' ORDER BY vou_date ASC";
+        $vou_opening_query = "SELECT * FROM emp_adv_given WHERE given_emp_id = '$emp_id' AND vou_date <= '$vou_date'";
         $vou_opening_result = $mysqli->query($vou_opening_query);
 
         $vou_ob_givend = 0;
         while ($vou_op_res = $vou_opening_result->fetch_assoc()) {
             $vou_ob_givend += $vou_op_res['given_amt'];
         }
-
+        $vou_ob_givend;
         // Fetch all relevant records sorted by date
         $vou_details_query = "SELECT * FROM emp_vou_details WHERE emp_id='$emp_id' AND vou_date <= '$vou_date' ORDER BY vou_date ASC";
         $vou_details_result = $mysqli->query($vou_details_query);
@@ -257,7 +259,7 @@ if (isset($_GET['serial_no'])) {
 
         while ($vou_detail = $vou_details_result->fetch_assoc()) {
             // $vou_date = $vou_detail['vou_date'];
-
+    
             // Fetch expenses for the current date
             $gst_exp = $vou_detail['vou_gst'];
             $tool_exp = $vou_detail['vou_tools'];
@@ -267,10 +269,11 @@ if (isset($_GET['serial_no'])) {
             $bod_ldg_exp = $vou_detail['vou_bod_ldg'];
             $lcl_trav_exp = $vou_detail['vou_lcl_trav'];
             $pertrol_exp = $vou_detail['vou_petrol'];
+            $sundry_exp = $vou_detail['vou_sundry'];
             $vh_service_exp = $vou_detail['vou_vh_service'];
 
             // Calculate total expenses for the current date
-            $total_expenses = $gst_exp + $tool_exp + $xerox_exp + $other_exp + $ot_trav_exp + $bod_ldg_exp + $lcl_trav_exp + $pertrol_exp + $vh_service_exp;
+            $total_expenses += $gst_exp + $tool_exp + $xerox_exp + $other_exp + $ot_trav_exp + $bod_ldg_exp + $lcl_trav_exp + $pertrol_exp + $sundry_exp + $vh_service_exp;
 
             // Add total expenses to co-employee given amount
             $vou_ob_givend_2 = $total_expenses;
@@ -282,23 +285,24 @@ if (isset($_GET['serial_no'])) {
             while ($vou_adv_res = $vou_adv_given_emp_result->fetch_assoc()) {
                 $vou_ob_givend_2 += $vou_adv_res['given_amt'];
             }
-
-            // Calculate the closing balance for the current date
-            $vou_closing_bal_that_date = $current_opening_balance - $vou_ob_givend_2;
-
-            // Output the current date balances
-            // echo "Date: " . $vou_date . "</br>";
-            // echo "Opening Balance: " . $current_opening_balance . "</br>";
-            // echo "Total Expenses + Co-Employee Amounts: " . $vou_ob_givend_2 . "</br>";
-            // echo "Closing Balance: " . $vou_closing_bal_that_date . "</br></br>";
-
-            // Set the next date's opening balance to the current date's closing balance
-            $current_opening_balance = $vou_closing_bal_that_date;
-
-            // Optionally, update the database with the closing balance for the current date
-            $update_query = "UPDATE emp_vou_details SET closing_balance = '$vou_closing_bal_that_date' WHERE emp_id='$emp_id' AND vou_date='$vou_date'";
-            $mysqli->query($update_query);
         }
+
+        // Calculate the closing balance for the current date
+        $vou_closing_bal_that_date = $current_opening_balance - $vou_ob_givend_2;
+
+        // Output the current date balances
+        // echo "Date: " . $vou_date . "</br>";
+        // echo "Opening Balance: " . $current_opening_balance . "</br>";
+        // echo "Total Expenses + Co-Employee Amounts: " . $vou_ob_givend_2 . "</br>";
+        // echo "Closing Balance: " . $vou_closing_bal_that_date . "</br></br>";
+    
+        // Set the next date's opening balance to the current date's closing balance
+        $current_opening_balance = $vou_closing_bal_that_date;
+
+        // Optionally, update the database with the closing balance for the current date
+        // $update_query = "UPDATE emp_vou_details SET closing_balance = '$vou_closing_bal_that_date' WHERE emp_id='$emp_id' AND vou_date='$vou_date'";
+        // $mysqli->query($update_query);
+    
         ?>
 
 
@@ -311,7 +315,9 @@ if (isset($_GET['serial_no'])) {
                 method="POST" enctype="multipart/form-data">
 
                 <div class="heading_container">
+
                     <h3>ACS - Reiumbersement Voucher</h3>
+
                 </div>
 
 
@@ -344,7 +350,8 @@ if (isset($_GET['serial_no'])) {
                     <div class="name_cont">
                         <label for="vou_ob" class="col-md-8 col-form-label text-nowrap">Opening Balance</label>
                         <div class="col">
-                            <input type="number" class="form-control form-control-md" id="vou_ob" name="vou_ob" value="<?php echo $current_opening_balance; ?>" readonly>
+                            <input type="number" class="form-control form-control-md" id="vou_ob" name="vou_ob"
+                                value="<?php echo $current_opening_balance; ?>" readonly>
                         </div>
                     </div>
                 </div>
@@ -460,6 +467,13 @@ if (isset($_GET['serial_no'])) {
                                         name="vou_bod_ldg" value="<?php echo $vou_bod_ldg; ?>">
                                 </div>
                             </div>
+                            <div class="name_cont news-item" data-category="Cat1, Cat3">
+                                <label for="upload_exp_img" class="col-md-8 col-form-label text-nowrap">Uplaod images</label>
+                                <div class="col">
+                                    <input type="file" class="form-control form-control-md " id="upload_exp_img"
+                                        name="uploadfile_exp[]" multiple>
+                                </div>
+                            </div>
                         </div>
                     </div><br>
 
@@ -467,41 +481,41 @@ if (isset($_GET['serial_no'])) {
                         $(document).ready(function () {
                             $('#addRow').click(function () {
                                 var newRow = `
-                                                                                            <div class="name_count row">
-                                                                                                <div class="col-sm">
-                                                                                                    <label for="jc_num" class="col-form-label text-nowrap">JC no</label>
-                                                                                                    <input type="text" class="form-control form-control-sm" name="jc_num[]" value="<?php echo $jc_num; ?>">
-                                                                                                </div>
-                                                                                                <div class="col-sm">
-                                                                                                    <label for="given_emp_id" class="col-form-label text-nowrap">EMP Name</label>
-                                                                                                    <select required name="given_emp_id[]" class="form-control" data-live-search="false">
-                                                                                                        <?php
-                                                                                                        $employelist = $mysqli->query("SELECT * FROM employee where employee_status = 'Active'") or die($mysqli);
-                                                                                                        while ($empdetail = $employelist->fetch_assoc()):
-                                                                                                            $emp_id = $empdetail['employee_id'];
-                                                                                                            $emp_name = $empdetail['employee_name'];
-                                                                                                            ?>
-                                                                                                                                                <option value="<?php echo $emp_id; ?>" <?php if ($row_update['given_emp_id'] == $emp_id)
-                                                                                                                                                       echo 'selected'; ?>>
-                                                                                                                                                    <?php echo $emp_name; ?>
-                                                                                                                                                </option>
-                                                                                                        <?php endwhile; ?>
-                                                                                                    </select>
-                                                                                                </div>
-                                                                                                <div class="col-sm">
-                                                                                                    <label for="given_amt" class="col-form-label text-nowrap">Given Amount</label>
-                                                                                                    <input type="text" class="form-control form-control-sm" name="given_amt[]" value="<?php echo $given_amt; ?>">
-                                                                                                </div>
-                                                                                                <div class="col-sm">
-                                                                                                    <label for="given_proof_type" class="col-form-label text-nowrap">Given Proof</label>
-                                                                                                    <input type="file" class="form-control form-control-sm" name="uploadfile[]">
-                                                                                                    <div><?php echo $stored_images; ?></div>
-                                                                                                </div>
-                                                                                                <div class="col-sm d-flex align-items-end">
-                                                                                                    <button type="button" class="btn btn-danger removeRow">Remove</button>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        `;
+                                                                                                            <div class="name_count row">
+                                                                                                                <div class="col-sm">
+                                                                                                                    <label for="jc_num" class="col-form-label text-nowrap">JC no</label>
+                                                                                                                    <input type="text" class="form-control form-control-sm" name="jc_num[]" value="<?php echo $jc_num; ?>">
+                                                                                                                </div>
+                                                                                                                <div class="col-sm">
+                                                                                                                    <label for="given_emp_id" class="col-form-label text-nowrap">EMP Name</label>
+                                                                                                                    <select required name="given_emp_id[]" class="form-control" data-live-search="false">
+                                                                                                                        <?php
+                                                                                                                        $employelist = $mysqli->query("SELECT * FROM employee where employee_status = 'Active'") or die($mysqli);
+                                                                                                                        while ($empdetail = $employelist->fetch_assoc()):
+                                                                                                                            $emp_id = $empdetail['employee_id'];
+                                                                                                                            $emp_name = $empdetail['employee_name'];
+                                                                                                                            ?>
+                                                                                                                                                                        <option value="<?php echo $emp_id; ?>" <?php if ($row_update['given_emp_id'] == $emp_id)
+                                                                                                                                                                               echo 'selected'; ?>>
+                                                                                                                                                                            <?php echo $emp_name; ?>
+                                                                                                                                                                        </option>
+                                                                                                                        <?php endwhile; ?>
+                                                                                                                    </select>
+                                                                                                                </div>
+                                                                                                                <div class="col-sm">
+                                                                                                                    <label for="given_amt" class="col-form-label text-nowrap">Given Amount</label>
+                                                                                                                    <input type="text" class="form-control form-control-sm" name="given_amt[]" value="<?php echo $given_amt; ?>">
+                                                                                                                </div>
+                                                                                                                <div class="col-sm">
+                                                                                                                    <label for="given_proof_type" class="col-form-label text-nowrap">Given Proof</label>
+                                                                                                                    <input type="file" class="form-control form-control-sm" name="uploadfile[]">
+                                                                                                                    <div><?php echo $stored_images; ?></div>
+                                                                                                                </div>
+                                                                                                                <div class="col-sm d-flex align-items-end">
+                                                                                                                    <button type="button" class="btn btn-danger removeRow">Remove</button>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        `;
                                 $('#formContainer').append(newRow);
                             });
 
@@ -546,20 +560,17 @@ if (isset($_GET['serial_no'])) {
                                 </div>
                             </div>
                         </div>
-                        <button type="button" id="addRow" class="btn btn-primary mt-2">Add Row</button>
+                        <button type="button" id="addRow" class="btn btn-secondary mt-2">Add Row</button>
                     </div>
 
-                    <div class="name_cont" style="width: 10%; margin-left:70%; height: 5%;">
-                        <label for="vou_cb" class="col-form-label">
-                            <h5>Closing Balance:</h5>
-                        </label><br>
-                        <textarea class="form-control" id="vou_cb" name="vou_cb" readonly><?php echo $vou_cb; ?></textarea>
-                    </div>
+                    <script>
+                        function form_check() {
+                            alert("Please check All the amount!")
+                        }
+                    </script>
 
-                    <br>
-
-                    <div class="sub_btn">
-                        <button class="btn btn-success" type="submit" name="upload">Submit</button>
+                    <div class="sub_btn text-center">
+                        <button class="btn btn-success" type="submit" name="upload" onclick="form_check()">Submit</button>
                     </div>
                 </form>
                 <br>
@@ -665,9 +676,13 @@ if (isset($_GET['serial_no'])) {
                 </div>
             </div>
 
-
+            <script>
+                function form_check() {
+                    alert("Please check All the amount!")
+                }
+            </script>
             <div class="sub_btn">
-                <button class="btn btn-success" type="submit" name="save">Submit</button>
+                <button class="btn btn-success" type="submit" name="save" onclick="form_check()">Submit</button>
             </div>
         </form>
     <?php } ?>

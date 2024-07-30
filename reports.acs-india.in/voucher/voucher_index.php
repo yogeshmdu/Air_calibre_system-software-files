@@ -9,28 +9,39 @@
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
 
   <style>
+    * {
+      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      font-size: small;
+    }
+
+    body {
+      margin: 3% 4% 4% 4%;
+    }
+
+
     table {
       width: 100%;
       margin-top: -8px;
-      color: whitesmoke;
     }
-    h3{
-      background-color: #660066;
+
+    h3 {
+      background-color: #424242;
       padding: 15px 50px 15px 50px;
       color: whitesmoke;
     }
+
     thead {
-      background-color: #AA98A2;
-      
+      background-color: goldenrod;
+
     }
-    
-    thead tr th{
+
+    thead tr th {
       color: whitesmoke;
     }
 
     tbody tr {
       text-align: center;
-      
+
     }
 
 
@@ -76,13 +87,18 @@
   <div class="full_cont">
     <table class="table">
       <h3 style="text-align: center; margin-top: 10px;"> ACS - Reimbursement Voucher </h3>
-    
+
       <thead class="table text-center">
         <tr>
           <th class="th_data" scope="col"> S.No </th>
           <th class="th_data" scope="col"> Employee Name </th>
           <th class="th_data" scope="col"> Date </th>
-          <th class="th_data" scope="col" >Add</th>
+          <th class="th_data" scope="col">Add</th>
+          <?php if ($vou_format != 1): ?>
+            <th class="th_data" scope="col">Income</th>
+          <?php else: ?>
+            <th class="th_data" scope="col">Outcome</th>
+          <?php endif; ?>
           <th class="th_data" scope="col">Monthly</th>
           <th class="th_data" scope="col">Files</th>
         </tr>
@@ -119,7 +135,7 @@
                     <li>
                       <a class="dropdown-item"
                         href="voucher_form.php?vou_date=<?php echo $vou_date; ?>&vou_format=<?php echo $vou_format; ?>&emp_name=<?php echo $emp_name; ?>&emp_id=<?php echo $emp_id; ?>">
-                        <i class="fa-solid fa-circle-plus" style="color: #0f0f0f;"></i> New
+                        <i class="fa-solid fa-circle-plus" style="color: #0f0f0f;"></i> &nbsp; &nbsp; New
                       </a>
                     </li>
                     <li>
@@ -130,6 +146,10 @@
                     </li>
                   </ul>
                 </div>
+              </td>
+              <td class="first_cont">
+                <a href="voucher_received_amt.php?emp_name=<?php echo $emp_name; ?>&emp_id=<?php echo $emp_id; ?>"> <i
+                    class="fa-solid fa-person-rays" style="color: #050505;"></i></a>
               </td>
               <td class="first_cont">
                 <a href="voucher_month_view.php?emp_name=<?php echo $emp_name; ?>&emp_id=<?php echo $emp_id; ?>"> <i
@@ -205,7 +225,7 @@
                     <li>
                       <a class="dropdown-item"
                         href="voucher_form.php?vou_date=<?php echo $vou_date; ?>&vou_format=<?php echo $vou_format; ?>&emp_name=<?php echo $emp_name; ?>&emp_id=<?php echo $emp_id; ?>">
-                        <i class="fa-solid fa-circle-plus" style="color: #0f0f0f;"></i>New
+                        <i class="fa-solid fa-circle-plus" style="color: #0f0f0f;"></i> &nbsp; &nbsp; New
                       </a>
                     </li>
                     <li>
@@ -218,8 +238,13 @@
                 </div>
               </td>
               <td class="first_cont">
-                <a href="voucher_month_view.php?emp_name=<?php echo $emp_name; ?>&emp_id=<?php echo $emp_id; ?>"> <i
-                    class="fa-solid fa-eye" style="color: #030303;"></i></a>
+                <a href="voucher_off_outcome.php?emp_name=<?php echo $emp_name; ?>&emp_id=<?php echo $emp_id; ?>"> <i
+                    class="fa-solid fa-person-rays" style="color: #050505;"></i></a>
+              </td>
+              <td class="first_cont">
+                <a
+                  href="voucher_month_view.php?emp_name=<?php echo $emp_name; ?>&emp_id=<?php echo $emp_id; ?>&vou_format=<?php echo $vou_format; ?>">
+                  <i class="fa-solid fa-eye" style="color: #030303;"></i></a>
               </td>
               <td>
                 <a

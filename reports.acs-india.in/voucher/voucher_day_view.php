@@ -81,9 +81,10 @@ if (isset($_GET['serial_no'])) {
         $emp_vou_bod = $vou_emp['vou_bod_ldg'];
         $emp_vou_lcl = $vou_emp['vou_lcl_trav'];
         $emp_vou_petr = $vou_emp['vou_petrol'];
+        $emp_vou_sundry = $vou_emp['vou_sundry'];
         $emp_vou_ser = $vou_emp['vou_vh_service'];
 
-        $total_exp += $emp_vou_gst + $emp_vou_tools + $emp_vou_xerox + $emp_vou_other + $emp_vou_trav + $emp_vou_bod + $emp_vou_lcl + $emp_vou_petr + $emp_vou_ser;
+        $total_exp += $emp_vou_gst + $emp_vou_tools + $emp_vou_xerox + $emp_vou_other + $emp_vou_trav + $emp_vou_bod + $emp_vou_lcl + $emp_vou_petr + $emp_vou_sundry + $emp_vou_ser;
 
     endwhile;
 
@@ -147,6 +148,7 @@ if (isset($_GET['serial_no'])) {
                     <td><?php echo $emp_vou_parti; ?></td>
                     <td></td>
                 </tr>
+                
                 <tr>
                     <td>2</td>
                     <td>GST</td>
@@ -155,60 +157,66 @@ if (isset($_GET['serial_no'])) {
                 </tr>
                 <tr>
                     <td>3</td>
+                    <td>Tools</td>
+                    <td></td>
+                    <td><?php echo $emp_vou_tools; ?></td>
+                </tr>
+                <tr>
+                    <td>4</td>
                     <td>Xerox</td>
                     <td></td>
                     <td><?php echo $emp_vou_xerox; ?></td>
                 </tr>
+                
                 <tr>
-                    <td>4</td>
+                    <td>5</td>
                     <td>Others</td>
                     <td></td>
                     <td><?php echo $emp_vou_other; ?></td>
                 </tr>
                 <tr>
-                    <td>5</td>
-                    <td>Tools</td>
+                    <td>6</td>
+                    <td>Sundry</td>
                     <td></td>
-                    <td><?php echo $emp_vou_tools; ?></td>
-
+                    <td><?php echo $emp_vou_sundry; ?></td>
                 </tr>
                 <tr>
-                    <td>6</td>
+                    <td>7</td>
+                    <td>Local Travel</td>
+                    <td></td>
+                    <td><?php echo $emp_vou_lcl; ?></td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>Petrol</td>
+                    <td></td>
+                    <td><?php echo $emp_vou_petr; ?></td>
+                </tr>
+                
+                <tr>
+                    <td>9</td>
+                    <td>Vehicle service</td>
+                    <td></td>
+                    <td><?php echo $emp_vou_ser; ?></td>
+                </tr>
+                <tr>
+                    <td>10</td>
                     <td>Outstation Travel</td>
                     <td></td>
                     <td><?php echo $emp_vou_trav; ?></td>
 
                 </tr>
                 <tr>
-                    <td>7</td>
+                    <td>11</td>
                     <td>Boarding lodging</td>
                     <td></td>
                     <td><?php echo $emp_vou_bod; ?></td>
 
                 </tr>
+               
+                
                 <tr>
-                    <td>8</td>
-                    <td>Local Travel</td>
-                    <td></td>
-                    <td><?php echo $emp_vou_lcl; ?></td>
-
-                </tr>
-                <tr>
-                    <td>9</td>
-                    <td>Petrol</td>
-                    <td></td>
-                    <td><?php echo $emp_vou_petr; ?></td>
-
-                </tr>
-                <tr>
-                    <td>10</td>
-                    <td>Vehicle service</td>
-                    <td></td>
-                    <td><?php echo $emp_vou_ser; ?></td>
-
-                </tr>
-                <tr>
-                    <td>11</td>
+                    <td>12</td>
                     <td>Given Amount</td>
                     <td></td>
                     <td><?php echo $emp_vou_giv; ?></td>

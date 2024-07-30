@@ -53,10 +53,17 @@
     if (isset($_GET['emp_id'])) {
         $emp_id = $_GET['emp_id'];
     }
+
     $emp_name = "";
     if (isset($_GET['emp_name'])) {
         $emp_name = $_GET['emp_name'];
     }
+
+    $vou_format = "";
+    if (isset($_GET['vou_format'])) {
+        $vou_format = $_GET['vou_format'];
+    }
+
 
 
     include 'web_acsdb.php';
@@ -71,150 +78,225 @@
     ?>
 
     <div class="main_container">
-        <h3><?php echo $emp_name; ?> Monthly Details</h3>
-       
-        <br>
-        <div class="mb-3 row">
-            <label for="employeeName" class="col-sm-3 col-form-label">Employee Name:</label>
-            <div class="col-sm-4 mt-2">
-                <?php echo $emp_name; ?>
+        
+        <?php if ($vou_format != 1) { ?>
+            <h3><?php echo $emp_name; ?> Monthly Details</h3>
+
+            <br>
+            <div class="mb-3 row">
+                <label for="employeeName" class="col-sm-3 col-form-label">Employee Name:</label>
+                <div class="col-sm-4 mt-2">
+                    <?php echo $emp_name; ?>
+                </div>
             </div>
-        </div>
 
-        <div class="mb-3 row">
-            <label for="employeeID" class="col-sm-3 col-form-label">Employee ID:</label>
-            <div class="col-sm-4 mt-2">
-                <?php echo $emp_id; ?>
+            <div class="mb-3 row">
+                <label for="employeeID" class="col-sm-3 col-form-label">Employee ID:</label>
+                <div class="col-sm-4 mt-2">
+                    <?php echo $emp_id; ?>
+                </div>
             </div>
-        </div>
+            <div class="table_container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Opening Bal</th>
+                            <th>GST Bills</th>
+                            <th>Tools</th>
+                            <th>Xerox</th>
+                            <th>Local Travel</th>
+                            <th>Petrol</th>
+                            <th>Vehicle Service</th>
+                            <th>Outstation Travel</th>
+                            <th>Boarding & Lodging</th>
+                            <th>Staff Welfare</th>
+                            <th>Others</th>
+                            <th>Given Amount</th>
+                            <th>Voucher details</th>
+                            <th>Day closing</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $vou_query = ("SELECT * FROM emp_vou_details WHERE emp_id = '$emp_id' ORDER BY vou_date ASC");
+                        $vou_query_result = $mysqli->query($vou_query);
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Opening Bal</th>
-                    <th>GST Bills</th>
-                    <th>Tools</th>
-                    <th>Xerox</th>
-                    <th>Local Travel</th>
-                    <th>Petrol</th>
-                    <th>Vehicle Service</th>
-                    <th>Outstation Travel</th>
-                    <th>Boarding & Lodging</th>
-                    <th>Staff Welfare</th>
-                    <th>Others</th>
-                    <th>Given Amount</th>
-                    <th>Voucher details</th>
-                    <th>Day closing</th>
-                    <th>Total</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                $vou_query = ("SELECT * FROM emp_vou_details WHERE emp_id = '$emp_id' ORDER BY vou_date ASC");
-                $vou_query_result = $mysqli->query($vou_query);
+                        while ($vou_emp = $vou_query_result->fetch_assoc()):
+                            $seri_no = $vou_emp['serial_no'];
+                            $vou_emp_id = $vou_emp['emp_id'];
+                            $vou_emp_name = $vou_emp['emp_name'];
+                            $selec_vou_date = $vou_emp['vou_date'];
+                            $emp_vou_ob = $vou_emp['vou_ob'];
+                            $emp_vou_parti = $vou_emp['vou_particulares'];
+                            $emp_vou_gst = $vou_emp['vou_gst'];
+                            $emp_vou_xerox = $vou_emp['vou_xerox'];
+                            $emp_vou_others = $vou_emp['vou_others'];
+                            $emp_vou_sundry = $vou_emp['vou_sundry'];
+                            $emp_vou_tools = $vou_emp['vou_tools'];
+                            $emp_vou_trav = $vou_emp['vou_ot_trav'];
+                            $emp_vou_bod = $vou_emp['vou_bod_ldg'];
+                            $emp_vou_lcl = $vou_emp['vou_lcl_trav'];
+                            $emp_vou_petr = $vou_emp['vou_petrol'];
+                            $emp_vou_ser = $vou_emp['vou_vh_service'];
+                            $total_exp += $emp_vou_gst + $emp_vou_xerox + $emp_vou_others + $emp_vou_sundry + $emp_vou_tools + $emp_vou_trav + $emp_vou_bod + $emp_vou_lcl + $emp_vou_petr + $emp_vou_ser;
 
-                while ($vou_emp = $vou_query_result->fetch_assoc()):
-                    $seri_no = $vou_emp['serial_no'];
-                    $vou_emp_id = $vou_emp['emp_id'];
-                    $vou_emp_name = $vou_emp['emp_name'];
-                    $selec_vou_date = $vou_emp['vou_date'];
-                    $emp_vou_ob = $vou_emp['vou_ob'];
-                    $emp_vou_parti = $vou_emp['vou_particulares'];
-                    $emp_vou_gst = $vou_emp['vou_gst'];
-                    $emp_vou_xerox = $vou_emp['vou_xerox'];
-                    $emp_vou_others = $vou_emp['vou_others'];
-                    $emp_vou_sundry = $vou_emp['vou_sundry'];
-                    $emp_vou_tools = $vou_emp['vou_tools'];
-                    $emp_vou_trav = $vou_emp['vou_ot_trav'];
-                    $emp_vou_bod = $vou_emp['vou_bod_ldg'];
-                    $emp_vou_lcl = $vou_emp['vou_lcl_trav'];
-                    $emp_vou_petr = $vou_emp['vou_petrol'];
-                    $emp_vou_ser = $vou_emp['vou_vh_service'];
-                    $total_exp += $emp_vou_gst + $emp_vou_xerox + $emp_vou_others + $emp_vou_sundry + $emp_vou_tools + $emp_vou_trav + $emp_vou_bod + $emp_vou_lcl + $emp_vou_petr + $emp_vou_ser;
+                            // Retrieve the given amounts for the current date
+                            $emp_vou_giv = isset($given_amounts[$selec_vou_date]) ? implode(",", $given_amounts[$selec_vou_date]) : '';
 
-                    // Retrieve the given amounts for the current date
-                    $emp_vou_giv = isset($given_amounts[$selec_vou_date]) ? implode(",", $given_amounts[$selec_vou_date]) : '';
+                            $day_clsing_bal = $emp_vou_ob - $total_exp;
+                            ?>
+                            <tr>
+                                <td><?php echo $selec_vou_date; ?></td>
+                                <td><?php echo $emp_vou_ob; ?></td>
+                                <td><?php echo $emp_vou_gst; ?></td>
+                                <td><?php echo $emp_vou_tools; ?></td>
+                                <td><?php echo $emp_vou_xerox; ?></td>
+                                <td><?php echo $emp_vou_lcl; ?></td>
+                                <td><?php echo $emp_vou_petr; ?></td>
+                                <td><?php echo $emp_vou_ser; ?></td>
+                                <td><?php echo $emp_vou_trav; ?></td>
+                                <td><?php echo $emp_vou_bod; ?></td>
+                                <td><?php echo $emp_vou_sundry; ?></td>
+                                <td><?php echo $emp_vou_others; ?></td>
+                                <td style="width: 100px;"><?php echo $emp_vou_giv; ?></td>
+                                <td><?php echo $emp_vou_parti; ?></td>
+                                <td><?php echo $day_clsing_bal; ?></td>
+                                <td><?php echo $total_exp; ?></td>
+                            </tr>
 
-                    $day_clsing_bal = $emp_vou_ob - $total_exp;
-                    ?>
-                    <tr>
-                        <td><?php echo $selec_vou_date; ?></td>
-                        <td><?php echo $emp_vou_ob; ?></td>
-                        <td><?php echo $emp_vou_gst; ?></td>
-                        <td><?php echo $emp_vou_tools; ?></td>
-                        <td><?php echo $emp_vou_xerox; ?></td>
-                        <td><?php echo $emp_vou_lcl; ?></td>
-                        <td><?php echo $emp_vou_petr; ?></td>
-                        <td><?php echo $emp_vou_ser; ?></td>
-                        <td><?php echo $emp_vou_trav; ?></td>
-                        <td><?php echo $emp_vou_bod; ?></td>
-                        <td><?php echo $emp_vou_sundry; ?></td>
-                        <td><?php echo $emp_vou_others; ?></td>
-                        <td style="width: 100px;"><?php echo $emp_vou_giv; ?></td>
-                        <td><?php echo $emp_vou_parti; ?></td>
-                        <td><?php echo $day_clsing_bal; ?></td>
-                        <td><?php echo $total_exp; ?></td>
-                    </tr>
+                        <?php endwhile;
 
-                <?php endwhile; 
+                        $vou_query = ("SELECT * FROM emp_vou_details WHERE emp_id = '$emp_id'");
+                        $vou_query_result = $mysqli->query($vou_query);
 
-                $vou_query = ("SELECT * FROM emp_vou_details WHERE emp_id = '$emp_id'");
-                $vou_query_result = $mysqli->query($vou_query);
+                        while ($vou_emp = $vou_query_result->fetch_assoc()) {
 
-                while ($vou_emp = $vou_query_result->fetch_assoc()) {
+                            $emp_ob += $vou_emp['vou_ob'];
+                            $emp_parti = $vou_emp['vou_particulares'];
+                            $emp_gst += $vou_emp['vou_gst'];
+                            $emp_xerox += $vou_emp['vou_xerox'];
+                            $emp_others += $vou_emp['vou_others'];
+                            $emp_sundry += $vou_emp['vou_sundry'];
+                            $emp_tools += $vou_emp['vou_tools'];
+                            $emp_trav += $vou_emp['vou_ot_trav'];
+                            $emp_bod += $vou_emp['vou_bod_ldg'];
+                            $emp_lcl += $vou_emp['vou_lcl_trav'];
+                            $emp_petr += $vou_emp['vou_petrol'];
+                            $emp_ser += $vou_emp['vou_vh_service'];
+                            $total_exp_3 += $emp_vou_giv + $emp_gst + $emp_xerox + $emp_others + $emp_sundry + $emp_tools + $emp_trav + $emp_bod + $emp_lcl + $emp_petr + $emp_ser;
 
-                    $emp_ob += $vou_emp['vou_ob'];
-                    $emp_parti = $vou_emp['vou_particulares'];
-                    $emp_gst += $vou_emp['vou_gst'];
-                    $emp_xerox += $vou_emp['vou_xerox'];
-                    $emp_others += $vou_emp['vou_others'];
-                    $emp_sundry += $vou_emp['vou_sundry'];
-                    $emp_tools += $vou_emp['vou_tools'];
-                    $emp_trav += $vou_emp['vou_ot_trav'];
-                    $emp_bod += $vou_emp['vou_bod_ldg'];
-                    $emp_lcl += $vou_emp['vou_lcl_trav'];
-                    $emp_petr += $vou_emp['vou_petrol'];
-                    $emp_ser += $vou_emp['vou_vh_service'];
-                    $total_exp_3 += $emp_vou_giv + $emp_gst + $emp_xerox + $emp_others + $emp_sundry + $emp_tools + $emp_trav + $emp_bod + $emp_lcl + $emp_petr + $emp_ser;
-
-                    // Retrieve the given amounts for the current date
-                    $emp_giv = isset($given_amounts[$selec_date]) ? implode(",", $given_amounts[$selec_vou_date]) : '';
+                            // Retrieve the given amounts for the current date
+                            $emp_giv = isset($given_amounts[$selec_date]) ? implode(",", $given_amounts[$selec_vou_date]) : '';
 
 
-                }
-                ?>
-                <tr>
-                    <td style="font-weight: bold;">Total</td>
-                    <td><?php echo $emp_ob; ?></td>
-                    <td><?php echo $emp_gst; ?></td>
-                    <td><?php echo $emp_tools; ?></td>
-                    <td><?php echo $emp_xerox; ?></td>
-                    <td><?php echo $emp_lcl; ?></td>
-                    <td><?php echo $emp_petr; ?></td>
-                    <td><?php echo $emp_ser; ?></td>
-                    <td><?php echo $emp_trav; ?></td>
-                    <td><?php echo $emp_bod; ?></td>
-                    <td><?php echo $emp_sundry; ?></td>
-                    <td><?php echo $emp_others; ?></td>
-                    <td><?php echo $emp_giv; ?></td>
-                    <td></td>
-                    <td><?php echo $day_clsing_bal; ?></td>
-                    <td><?php echo $total_exp_3; ?></td>
+                        }
+                        ?>
+                        <tr>
+                            <td style="font-weight: bold;">Total</td>
+                            <td><?php echo $emp_ob; ?></td>
+                            <td><?php echo $emp_gst; ?></td>
+                            <td><?php echo $emp_tools; ?></td>
+                            <td><?php echo $emp_xerox; ?></td>
+                            <td><?php echo $emp_lcl; ?></td>
+                            <td><?php echo $emp_petr; ?></td>
+                            <td><?php echo $emp_ser; ?></td>
+                            <td><?php echo $emp_trav; ?></td>
+                            <td><?php echo $emp_bod; ?></td>
+                            <td><?php echo $emp_sundry; ?></td>
+                            <td><?php echo $emp_others; ?></td>
+                            <td><?php echo $emp_giv; ?></td>
+                            <td></td>
+                            <td><?php echo $day_clsing_bal; ?></td>
+                            <td><?php echo $total_exp_3; ?></td>
 
-                </tr>
-            </tbody>
-        </table>
-        <br>
+                        </tr>
+                    </tbody>
+                </table>
+                <br>
 
-        <div class="mb-3 row">
-            <label for="voucherClosingBalance" class="fw-bold col-sm-3 col-form-label">Voucher Closing Balance:</label>
-            <strong class="col-sm-4 mt-2">
-                <?php
-                $vou_closing_balance = $emp_ob - $total_exp_3;
-                echo $vou_closing_balance; ?>
-            </strong>
-        </div>
+                <div class="mb-3 row">
+                    <label for="voucherClosingBalance" class="fw-bold col-sm-3 col-form-label">Voucher Closing
+                        Balance:</label>
+                    <strong class="col-sm-4 mt-2">
+                        <?php
+                        $vou_closing_balance = $emp_ob - $total_exp_3;
+                        echo $vou_closing_balance; ?>
+                    </strong>
+                </div>
+            </div>
+        <?php } else { ?>
+            <h3><?php echo $emp_name; ?> Office Monthly Details</h3>
+            <br>
+            <div class="mb-3 row">
+                <label for="employeeName" class="col-sm-3 col-form-label">Office Employee Name:</label>
+                <div class="col-sm-4 mt-2">
+                    <?php echo $emp_name; ?>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="employeeID" class="col-sm-3 col-form-label">Office Employee ID:</label>
+                <div class="col-sm-4 mt-2">
+                    <?php echo $emp_id; ?>
+                </div>
+            </div>
+            <div class="table_container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Giver Name</th>
+                            <th>Giver Id</th>
+                            <th>Receiver Name</th>
+                            <th>Receiver Id </th>
+                            <th>Voucher Given Amount</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $vou_query = ("SELECT * FROM emp_adv_given WHERE emp_id = '$emp_id' AND vou_format = '$vou_format' ORDER BY vou_date ASC");
+                        $vou_query_result = $mysqli->query($vou_query);
+
+                        while ($vou_emp = $vou_query_result->fetch_assoc()):
+                            $seri_no = $vou_emp['serial_no'];
+                            $vou_date = $vou_emp['vou_date'];
+                            $vou_emp_id = $vou_emp['emp_id'];
+                            $vou_emp_name = $vou_emp['emp_name'];
+                            $receiver_id = $vou_emp['given_emp_id'];
+                            $givend_amt = $vou_emp['given_amt'];
+                            $vou_details = $vou_emp['adv_details'];
+
+                            ?>
+                            <tr>
+                                <td><?php echo $vou_date; ?></td>
+                                <td><?php echo $vou_emp_id; ?></td>
+                                <td><?php echo $vou_emp_name; ?></td>
+                                <td><?php echo $receiver_id; ?></td>
+                                <td><?php echo $vou_details; ?></td>
+                                <td><?php echo $givend_amt; ?></td>
+                                <td><?php echo $total_exp; ?></td>
+                            </tr>
+
+                        <?php endwhile; ?>
+                    </tbody>
+                </table>
+                <br>
+
+                <div class="mb-3 row">
+                    <label for="voucherClosingBalance" class="fw-bold col-sm-3 col-form-label">Voucher Closing
+                        Balance:</label>
+                    <strong class="col-sm-4 mt-2">
+                        <?php
+                        $vou_closing_balance = $emp_ob - $total_exp_3;
+                        echo $vou_closing_balance; ?>
+                    </strong>
+                </div>
+            </div>
+        <?php } ?>
+
     </div>
 
 

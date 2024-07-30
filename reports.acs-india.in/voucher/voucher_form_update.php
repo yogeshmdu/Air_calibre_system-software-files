@@ -95,8 +95,17 @@ if (isset($_GET['serial_no'])) {
             }
         }
 
+        * {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size: small;
+        }
+
         .heading_container {
             text-align: center;
+            background-color: #424242;
+            margin: 3% 4% 4% 4%;
+            color: white;
+            padding: 1% 0%;
         }
 
         .head_container {
@@ -174,11 +183,6 @@ if (isset($_GET['serial_no'])) {
             display: none;
         }
 
-        h3 {
-            background-color: #660066;
-            padding: 15px 50px 15px 50px;
-            color: whitesmoke;
-        }
 
         /* The media query / Responsive code are there */
         @media screen and (max-width:820px) {
@@ -474,41 +478,41 @@ if (isset($_GET['serial_no'])) {
                     $(document).ready(function () {
                         $('#addRow').click(function () {
                             var newRow = `
-                                        <div class="name_count row">
-                                            <div class="col-sm">
-                                                <label for="jc_num" class="col-form-label text-nowrap">JC no</label>
-                                                <input type="text" class="form-control form-control-sm" name="jc_num[]" value="<?php echo $jc_num; ?>">
+                                            <div class="name_count row">
+                                                <div class="col-sm">
+                                                    <label for="jc_num" class="col-form-label text-nowrap">JC no</label>
+                                                    <input type="text" class="form-control form-control-sm" name="jc_num[]" value="<?php echo $jc_num; ?>">
+                                                </div>
+                                                <div class="col-sm">
+                                                    <label for="given_emp_id" class="col-form-label text-nowrap">EMP Name</label>
+                                                    <select required name="given_emp_id[]" class="form-control" data-live-search="false">
+                                                        <?php
+                                                        $employelist = $mysqli->query("SELECT * FROM employee where employee_status = 'Active'") or die($mysqli);
+                                                        while ($empdetail = $employelist->fetch_assoc()):
+                                                            $emp_id = $empdetail['employee_id'];
+                                                            $emp_name = $empdetail['employee_name'];
+                                                            ?>
+                                                                    <option value="<?php echo $emp_id; ?>" <?php if ($row_update['given_emp_id'] == $emp_id)
+                                                                           echo 'selected'; ?>>
+                                                                        <?php echo $emp_name; ?>
+                                                                    </option>
+                                                        <?php endwhile; ?>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm">
+                                                    <label for="given_amt" class="col-form-label text-nowrap">Given Amount</label>
+                                                    <input type="text" class="form-control form-control-sm" name="given_amt[]" value="<?php echo $given_amt; ?>">
+                                                </div>
+                                                <div class="col-sm">
+                                                    <label for="given_proof_type" class="col-form-label text-nowrap">Given Proof</label>
+                                                    <input type="file" class="form-control form-control-sm" name="uploadfile[]">
+                                                    <div><?php echo $stored_images; ?></div>
+                                                </div>
+                                                <div class="col-sm d-flex align-items-end">
+                                                    <button type="button" class="btn btn-danger removeRow">Remove</button>
+                                                </div>
                                             </div>
-                                            <div class="col-sm">
-                                                <label for="given_emp_id" class="col-form-label text-nowrap">EMP Name</label>
-                                                <select required name="given_emp_id[]" class="form-control" data-live-search="false">
-                                                    <?php
-                                                    $employelist = $mysqli->query("SELECT * FROM employee where employee_status = 'Active'") or die($mysqli);
-                                                    while ($empdetail = $employelist->fetch_assoc()):
-                                                        $emp_id = $empdetail['employee_id'];
-                                                        $emp_name = $empdetail['employee_name'];
-                                                        ?>
-                                                            <option value="<?php echo $emp_id; ?>" <?php if ($row_update['given_emp_id'] == $emp_id)
-                                                                   echo 'selected'; ?>>
-                                                                <?php echo $emp_name; ?>
-                                                            </option>
-                                                    <?php endwhile; ?>
-                                                </select>
-                                            </div>
-                                            <div class="col-sm">
-                                                <label for="given_amt" class="col-form-label text-nowrap">Given Amount</label>
-                                                <input type="text" class="form-control form-control-sm" name="given_amt[]" value="<?php echo $given_amt; ?>">
-                                            </div>
-                                            <div class="col-sm">
-                                                <label for="given_proof_type" class="col-form-label text-nowrap">Given Proof</label>
-                                                <input type="file" class="form-control form-control-sm" name="uploadfile[]">
-                                                <div><?php echo $stored_images; ?></div>
-                                            </div>
-                                            <div class="col-sm d-flex align-items-end">
-                                                <button type="button" class="btn btn-danger removeRow">Remove</button>
-                                            </div>
-                                        </div>
-                                    `;
+                                        `;
                             $('#formContainer').append(newRow);
                         });
 
@@ -564,7 +568,7 @@ if (isset($_GET['serial_no'])) {
                 <br>
 
                 <div class="sub_btn">
-                    <button class="btn btn-success" type="submit" name="upload">Update</button>
+                    <button class="btn btn-success" type="submit" name="upload" disabled>Update</button>
                 </div>
             </form>
             <br>

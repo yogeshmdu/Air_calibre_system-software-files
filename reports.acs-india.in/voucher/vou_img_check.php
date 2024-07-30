@@ -1,10 +1,11 @@
 <?php 
-include('web_acsdb.php');
-
 $serial_no = "";
 if (isset($_GET["serial_no"])) {
     $serial_no = $_GET["serial_no"];
 }
+
+$directory = "uploads/";
+$files = glob($directory . "*.{jpg,jpeg,png,gif,jfif,pdf}", GLOB_BRACE);
 ?>
 
 <!DOCTYPE html>
@@ -14,88 +15,88 @@ if (isset($_GET["serial_no"])) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Image Gallery</title>
 <style>
-    /* Styling for the gallery */
     .gallery {
         display: flex;
         flex-wrap: wrap;
+        gap: 10px;
     }
-    .gallery img {
-        width: 100px; /* Set the initial size of the images */
-        height: auto;
-        margin: 5px;
+    .gallery img,
+    .gallery embed {
+        max-width: 200px;
+        border-radius: 10px;
+        transition: transform 0.3s ease-in-out, opacity 0.5s ease-in-out;
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    .gallery img.visible,
+    .gallery embed.visible {
+        opacity: 1;
+        transform: scale(1);
+    }
+    .image-container {
         cursor: pointer;
-    }
-    .modal {
-        display: none;
-        position: fixed;
-        z-index: 1;
-        padding-top: 50px;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(0, 0, 0, 0.9);
-    }
-    .modal-content {
-        margin: auto;
-        display: block;
-        width: 80%;
-        max-width: 800px;
-    }
-    .modal-content img {
-        max-width: 100%;
-        max-height: 100%;
+        display: inline-block;
     }
 </style>
 </head>
 <body>
 
 <div class="gallery">
-    <!-- Clicking on these images will display them in a modal -->
     <?php 
-    // Fetch the image data and its type from the database
-    $image_query = "SELECT * FROM emp_vou_details WHERE serial_no = '$serial_no'"; 
-    $vou_data = mysqli_query($mysqli, $image_query);
-    $vou_img_count = mysqli_num_rows($vou_data);
-
-    while ($vou_cont = mysqli_fetch_assoc($vou_data)) {
-        if (!empty($vou_cont['given_proof']) && !empty($vou_cont['given_proof_type'])) {
-            // Output the image
-            $imageData = $vou_cont['given_proof'];
-            $imageType = $vou_cont['given_proof_type'];
-            $base64Image = base64_encode($imageData);
-            $src = "data:$imageType;base64,$base64Image";
-            echo '<img src="' . $src . '" onclick="openModal(\'' . $src . '\')" alt="Image">';
-        } else {
-            echo "They are don't add any attachments ";
+    foreach ($files as $file) {
+        $filename = basename($file);
+        $ext = pathinfo($filename, PATHINFO_EXTENSION);
+        if ($serial_no === "" || strpos($filename, $serial_no) === 0) {
+            echo '<div class="image-container" onclick="showFile(\'' . $directory . $filename . '\', \'' . $ext . '\')">';
+            if ($ext === 'pdf') {
+                echo '<embed src="' . $directory . $filename . '" type="application/pdf" />';
+            } else {
+                echo '<img src="' . $directory . $filename . '" alt="Image">';
+            }
+            echo '</div>';
         }
     }
     ?>
 </div>
 
-<!-- The modal -->
-<div id="myModal" class="modal">
-    <span class="close" onclick="closeModal()">&times;</span>
-    <div class="modal-content">
-        <img id="modal-img" src="" alt="Modal Image">
-    </div>
+<div id="lightbox" style="display:none;">
+    <span onclick="closeLightbox()" style="position:absolute; top:10px; right:10px; font-size:30px; cursor:pointer;">&times;</span>
+    <div id="lightboxContent" style="max-width:90%; margin:auto; display:block; max-height:80vh;"></div>
 </div>
 
 <script>
-    // Function to open the modal and display the clicked image
-    function openModal(imageSrc) {
-        var modal = document.getElementById("myModal");
-        var modalImg = document.getElementById("modal-img");
-        modal.style.display = "block";
-        modalImg.src = imageSrc;
+function showFile(src, ext) {
+    var lightbox = document.getElementById('lightbox');
+    var lightboxContent = document.getElementById('lightboxContent');
+    if (ext === 'pdf') {
+        lightboxContent.innerHTML = '<embed src="' + src + '" type="application/pdf" style="width:100%; height:100%;"/>';
+    } else {
+        lightboxContent.innerHTML = '<img src="' + src + '" style="max-width:100%; max-height:100%;" />';
     }
+    lightbox.style.display = 'block';
+    setTimeout(() => {
+        lightboxContent.style.opacity = '1';
+    }, 100);
+}
 
-    // Function to close the modal
-    function closeModal() {
-        var modal = document.getElementById("myModal");
-        modal.style.display = "none";
-    }
+function closeLightbox() {
+    var lightbox = document.getElementById('lightbox');
+    var lightboxContent = document.getElementById('lightboxContent');
+    lightboxContent.style.opacity = '0';
+    setTimeout(() => {
+        lightbox.style.display = 'none';
+    }, 300);
+}
+
+// Fade-in effect for images on page load
+window.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('.gallery img, .gallery embed');
+    images.forEach((img, index) => {
+        setTimeout(() => {
+            img.classList.add('visible');
+        }, index * 100);
+    });
+});
 </script>
 
 </body>
